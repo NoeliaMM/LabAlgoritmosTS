@@ -95,3 +95,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+table {
+  width: 80%; 
+  border-collapse: collapse;
+  margin: 20px auto; 
+}
+th, td {
+  padding: 8px;
+  text-align: left; 
+}
+.derecha{
+  text-align:right;
+}
+.bold{
+  font-weight: bold;
+}

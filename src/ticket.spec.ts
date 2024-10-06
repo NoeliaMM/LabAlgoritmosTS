@@ -1,28 +1,9 @@
-import { TipoIva } from './model';
-import {calcularPrecioConIva, mapearTipoIva} from './ticket';
-
-// describe("calculaTicket", () => {
-//   it("should pass spec", () => {
-//     // Arrange
-
-//     const producto ={
-//       producto: {
-//       nombre: "Legumbres",
-//       precio: 2,
-//       tipoIva: "general",
-//       },
-//       cantidad: 2,
-//   }
-//     // Act
-//     calculaLineaTicket(producto);
-
-//     // Assert
-//     expect(true).toBeTruthy();
-//   });
-// });
+import { LineaTicket, TicketFinal, TipoIva } from './model';
+import {calcularPrecioConIva, calculaTicket, mapearTipoIva} from './ticket';
 
 
 describe("mapearTipoIva", () => {
+  
   it.each([
     ["general", 21],  
     ["reducido", 10],  
@@ -38,15 +19,15 @@ describe("mapearTipoIva", () => {
     // Assert
     expect(resultado).toBe(resultadoEsperado);
   });
-})
+});
 
-  describe("calcularPrecioConIva", () => {
+describe("calcularPrecioConIva", () => {
     it.each([
       [10,10,11],  
       [2,21,2.42], 
       [2,0,2], 
   
-    ] as const)("Para un precio de %s con iva %s el valor es %s", (precio:number,iva:number, resultadoEsperado:number) => {
+    ] as const)("Para un precio de %s con iva %s el valor es %s", (precio:number,iva:number,resultadoEsperado:number) => {
   
       // Act
       const resultado = calcularPrecioConIva(precio,iva);
@@ -55,4 +36,24 @@ describe("mapearTipoIva", () => {
       expect(resultado).toBe(resultadoEsperado);
     });
 
-})
+});
+
+describe("calculaTicket", () => {
+  it('Debe devolver un total con IVA de', () => {
+
+   const lineasTicket :LineaTicket[] =
+   [{ 
+        producto:  { nombre: 'pan',  
+        precio: 1,
+        tipoIva: 'reducido'},
+        cantidad: 1
+      }
+    ];
+
+    const resultado : TicketFinal = calculaTicket(lineasTicket);
+
+    expect(resultado.total.totalConIva).toBe(1.1);
+    expect(resultado.total.totalSinIva).toBe(1);
+    expect(resultado.total.totalIva).toBe(0.1);
+  });
+});
