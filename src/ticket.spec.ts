@@ -10,7 +10,7 @@ describe("mapearTipoIva", () => {
     ["superreducidoA", 5],  
     ["superreducidoB", 4],  
     ["superreducidoC", 0],  
-    ["sinIva", 0],    
+    ["sinIva", 0]    
   ] as const)("El iva %s es: %s", (tipo:TipoIva, resultadoEsperado:number) => {
 
     // Act
@@ -25,9 +25,9 @@ describe("calcularPrecioConIva", () => {
     it.each([
       [10,10,11],  
       [2,21,2.42], 
-      [2,0,2], 
+      [2,0,2]
   
-    ] as const)("Para un precio de %s con iva %s el valor es %s", (precio:number,iva:number,resultadoEsperado:number) => {
+    ])("Para un precio de %s con iva %s el valor es %s", (precio:number,iva:number,resultadoEsperado:number) => {
   
       // Act
       const resultado = calcularPrecioConIva(precio,iva);
